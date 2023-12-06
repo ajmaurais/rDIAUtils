@@ -1,5 +1,20 @@
-pcAnalysis <-
-function(dat, quantCol,
+
+#' Perform PCA analysis on a column in a long formated dataframe
+#' 
+#' @param dat Long formated dataframe
+#' @param quantCol The name of the column with quantative values to analyze
+#' @param rowsName Name of the column to be row names in the wide matrix
+#' @param columnsName Name of the column to be column names in the wide matrix
+#' @param x.pc PC 1
+#' @param y.pc PC 2
+#'   
+#' @return list with 3 slots:
+#'       pc: The pc dataframe
+#'       x.lab: The x label for x.pc
+#'       y.lab: The y label for y.pc
+#' 
+#' @export
+pcAnalysis <- function(dat, quantCol,
                        rowsName='precursor', columnsName='replicate',
                        x.pc=1, y.pc=2)
 {

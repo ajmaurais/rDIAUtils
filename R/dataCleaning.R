@@ -6,6 +6,7 @@
 #' 
 #' @returns Dataframe with acquiredTimeCol as an R POSIXlt object.
 #' 
+#' @export
 parseAcquiredTime <- function(d, acquiredTimeCol='acquiredTime') {
     date.cols <- c('date', 'h', 'm', 's', 'pam')
     d <- tidyr::extract(d, acquiredTimeCol, into=date.cols,
@@ -23,12 +24,23 @@ parseAcquiredTime <- function(d, acquiredTimeCol='acquiredTime') {
 }
 
 #' Set zeros to the mininum non-zero area in each batch
+#' 
+#' @export
 zeroToMin <- function(x) {
     sele <- x == 0 | is.na(x)
     x[sele] <- min(x[!sele])
     x
 }
 
+#' Parse tsv file and save it as a serilized R object.
+#'
+#' If the serilized file already exists, it is read instead of the tsv file
+#'
+#' @param file.basename The basename of the tsv/Rda file.
+#' @param ext The file extension. Default is '.tsv'
+#' @param sep The deliminator. Default is '\\t'
+#' 
+#' @export
 readDataFile <- function(file.basename, ext='.tsv', sep='\t') {
     if(!file.exists(paste0(file.basename, '.Rda'))) {
         message(paste('Reading', paste0(file.basename, ext)))
@@ -41,7 +53,15 @@ readDataFile <- function(file.basename, ext='.tsv', sep='\t') {
     ret
 }
 
-readLongCsv <- function(fname)
+#' Parse DirectLFQ matrix into a long formated dataframe.
+#'
+#' Also save intermediate .Rda file similar to rDIAUtils::readDataFile.
+#'
+#' @param fname The DirectLFQ matrix.
+#'
+#' @seealso [rDIAUtils::readDataFile]
+#' @export
+readDirectLFQMatrix <- function(fname)
 {
     if(!file.exists(paste0(fname, '.Rda')))
     {
@@ -68,6 +88,7 @@ readLongCsv <- function(fname)
 #' 
 #' @returns A numeric matrix.
 #' 
+#' @export
 longToMatrix <- function(d, valuesFrom, rowsName, columnsName)
 {
     d.w <- d %>% dplyr::select(all_of(c(valuesFrom, rowsName, columnsName))) %>%
