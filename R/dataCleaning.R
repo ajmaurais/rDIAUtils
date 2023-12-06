@@ -1,4 +1,11 @@
 
+#' Convert a date string into POSIX format
+#' 
+#' @param dat Dataframe
+#' @param acquiredTimeCol Name of column with with the UTC date to parse
+#' 
+#' @returns Dataframe with acquiredTimeCol as an R POSIXlt object.
+#' 
 parseAcquiredTime <- function(d, acquiredTimeCol='acquiredTime') {
     date.cols <- c('date', 'h', 'm', 's', 'pam')
     d <- tidyr::extract(d, acquiredTimeCol, into=date.cols,
@@ -15,6 +22,7 @@ parseAcquiredTime <- function(d, acquiredTimeCol='acquiredTime') {
     return(d)
 }
 
+#' Set zeros to the mininum non-zero area in each batch
 zeroToMin <- function(x) {
     sele <- x == 0 | is.na(x)
     x[sele] <- min(x[!sele])
@@ -51,6 +59,15 @@ readLongCsv <- function(fname)
     dat.l
 }
 
+#' Convert long dataframe to wide numeric matrix.
+#' 
+#' @param d Long formated dataframe
+#' @param valuesFrom The name of the column with values that should be in the matrix.
+#' @param rowsName Name of the column to be row names in the matrix
+#' @param columnsName Name of the column to be column names in the matrix
+#' 
+#' @returns A numeric matrix.
+#' 
 longToMatrix <- function(d, valuesFrom, rowsName, columnsName)
 {
     d.w <- d %>% dplyr::select(all_of(c(valuesFrom, rowsName, columnsName))) %>%

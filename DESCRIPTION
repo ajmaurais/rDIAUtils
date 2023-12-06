@@ -1,9 +1,10 @@
 Package: rDIAUtils
 Type: Package
-Title: What the package does (short line)
+Title: Functions for performing normalization and batch correction on DIA data.
 Version: 1.0
 Date: 2023-12-06
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Aaron Maurais
+Maintainer: mauraisa@uw.edu
+Description: Some useful functions for performing normalization and batch correction on DIA proteomics data in R.
+License: MIT
+RoxygenNote: 7.2.3

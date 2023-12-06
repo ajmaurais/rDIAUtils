@@ -1,5 +1,23 @@
-batchCorrection <-
-function(d, quantCol, batch1, batch2=NULL, covariate.cols=NULL,
+
+#' Perform batch correction using the selected method.
+#' 
+#' @param d Long formated dataframe where each row is an observation for a single condition.
+#' @param quantCol Name of the column with quantative values.
+#' @param batch1 Name of the column to use for the first batch.
+#' 
+#' @param batch2 Name of the column to use for the second batch. (optional). Using a second batch is not supported with ComBat
+#' @param covariate.cols The names of the covariate columns. (optional)
+#' @param rowsName Name of the column to be row names in the wide matrix. Default is 'precursor'
+#' @param columnsName Name of the column to be column names in the wide matrix. Default is 'replicate'
+#' @param bc.method The batch correction column to use. One of c('combat', 'limma'). Default is 'combat'
+#' @param return.format How should the resulting dataframe be formated?
+#'              'Long': Long formated dataframe. (default)
+#'              'Wide': Wide formated dataframe.
+#'              'Matrix': Wide fromated numeric matrix.
+#' 
+#' @returns Batch correced dataframe.
+#' 
+batchCorrection <- function(d, quantCol, batch1, batch2=NULL, covariate.cols=NULL,
                             rowsName='precursor', columnsName='replicate', bc.method='limma',
                             return.format='long')
 {
