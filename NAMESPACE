@@ -1,0 +1,3 @@
+export("arrangePlots", "batchCorrection", "getName", "longToMatrix",
+       "parseAcquiredTime", "pcAnalysis", "PCAScatterPlot",
+       "readDataFile", "readLongCsv", "zeroToMin")
