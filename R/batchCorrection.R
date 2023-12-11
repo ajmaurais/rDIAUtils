@@ -60,7 +60,7 @@ batchCorrection <- function(d, quantCol, batch1, batch2=NULL, covariate.cols=NUL
         modlimma <- if(is.null(covariate.cols)) matrix(1, ncol(d.m), 1) else { model.matrix(formula(formula_str)) }
 
         d.m.bc <- limma::removeBatchEffect(x=d.m, batch1=d.labels[[batch1]],
-                                           # batch2=if(is.null(batch2)) NULL else {d.labels[[batch2]]},
+                                           batch2=if(is.null(batch2)) NULL else {d.labels[[batch2]]},
                                            design=modlimma)
     } else {
         stop(paste(bc.method, 'is an unknown batch correction method!'))

@@ -8,7 +8,13 @@ Maintainer: Aaron Maurais <mauraisa@uw.edu>
 Description: Some useful functions for performing normalization and batch correction on DIA proteomics data in R.
 License: MIT
 Encoding: UTF-8
-Imports: Rcpp (>= 1.0.0)
+Imports:
+    Rcpp (>= 1.0.0),
+    dplyr (>= 1.1.3),
+    tidyr (>= 1.3.0),
+    patchwork (>= 1.1.3),
+    limma (>= 1.56.2),
+    sva (>= 3.48.0)
 LinkingTo: Rcpp
 NeedsCompilation: yes
 RoxygenNote: 7.2.3
