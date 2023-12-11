@@ -4,7 +4,7 @@
 #' @param dat Dataframe
 #' @param acquiredTimeCol Name of column with with the UTC date to parse
 #' 
-#' @returns Dataframe with acquiredTimeCol as an R POSIXlt object.
+#' @return Dataframe with acquiredTimeCol as an R POSIXlt object.
 #' 
 #' @export
 parseAcquiredTime <- function(d, acquiredTimeCol='acquiredTime') {
@@ -86,7 +86,7 @@ readDirectLFQMatrix <- function(fname)
 #' @param rowsName Name of the column to be row names in the matrix
 #' @param columnsName Name of the column to be column names in the matrix
 #' 
-#' @returns A numeric matrix.
+#' @return A numeric matrix.
 #' 
 #' @export
 longToMatrix <- function(d, valuesFrom, rowsName, columnsName)

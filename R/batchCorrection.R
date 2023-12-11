@@ -15,7 +15,7 @@
 #'              'Wide': Wide formated dataframe.
 #'              'Matrix': Wide fromated numeric matrix.
 #' 
-#' @returns Batch correced dataframe.
+#' @return Batch correced dataframe.
 #' 
 batchCorrection <- function(d, quantCol, batch1, batch2=NULL, covariate.cols=NULL,
                             rowsName='precursor', columnsName='replicate', bc.method='limma',
@@ -89,3 +89,4 @@ batchCorrection <- function(d, quantCol, batch1, batch2=NULL, covariate.cols=NUL
     }
     stop(paste(return.format, 'is an unknown return.format!'))
 }
+

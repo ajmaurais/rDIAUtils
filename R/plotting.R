@@ -8,6 +8,18 @@ getName <- function(vec) {
     return(ret)
 }
 
+#' Make PCA scatter plot.
+#' 
+#' @param pc A PCA matrix.
+#' @param color.col Column to use for color aesthetic.
+#' @param plot.title Plot title. By default there is no title.
+#' @param show.ylab Show y axis label?
+#' @param show.xlab Show x axis label?
+#' @param show.legend Show legend for color aesthetic?
+#' 
+#' @return A ggplot object.
+#' 
+#' @export
 PCAScatterPlot <- function(pc, color.col, plot.title=NULL,
                            show.ylab=T, show.xlab=T, show.legend=F)
 {
@@ -42,6 +54,15 @@ PCAScatterPlot <- function(pc, color.col, plot.title=NULL,
     p
 }
 
+#' Arange multiple PCA matrices into a plot grid
+#' 
+#' @param pcs PCA matrices.
+#' @param row.cols Variables to use for rows.
+#' @param color.cols Variables to use for columns.
+#' 
+#' @return A patchwork plot object
+#' 
+#' @export
 arrangePlots <- function(pcs, row.cols, color.cols)
 {
     p <- NULL # initlize empty plot group
