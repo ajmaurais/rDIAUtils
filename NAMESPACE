@@ -2,6 +2,7 @@
 
 export(PCAScatterPlot)
 export(arrangePlots)
+export(batchCorrection)
 export(longToMatrix)
 export(parseAcquiredTime)
 export(pcAnalysis)
