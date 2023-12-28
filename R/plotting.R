@@ -56,7 +56,7 @@ PCAScatterPlot <- function(pc, color.col, plot.title=NULL,
 
 #' Arange multiple PCA matrices into a plot grid
 #' 
-#' @param pcs PCA matrices.
+#' @param pcs A list of PCA matrices.
 #' @param row.cols Variables to use for rows.
 #' @param color.cols Variables to use for columns.
 #' 

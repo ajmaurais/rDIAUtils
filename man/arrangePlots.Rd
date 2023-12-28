@@ -7,7 +7,7 @@
 arrangePlots(pcs, row.cols, color.cols)
 }
 \arguments{
-\item{pcs}{PCA matrices.}
+\item{pcs}{A list of PCA matrices.}
 
 \item{row.cols}{Variables to use for rows.}
 

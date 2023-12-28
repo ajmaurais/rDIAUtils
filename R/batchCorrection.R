@@ -9,7 +9,7 @@
 #' @param covariate.cols The names of the covariate columns. (optional)
 #' @param rowsName Name of the column to be row names in the wide matrix. Default is 'precursor'
 #' @param columnsName Name of the column to be column names in the wide matrix. Default is 'replicate'
-#' @param bc.method The batch correction column to use. One of c('combat', 'limma'). Default is 'combat'
+#' @param bc.method The batch correction column to use. One of c('combat', 'limma'). Default is 'limma'
 #' @param return.format How should the resulting dataframe be formated?
 #'              'Long': Long formated dataframe. (default)
 #'              'Wide': Wide formated dataframe.

@@ -31,7 +31,7 @@ batchCorrection(
 
 \item{columnsName}{Name of the column to be column names in the wide matrix. Default is 'replicate'}
 
-\item{bc.method}{The batch correction column to use. One of c('combat', 'limma'). Default is 'combat'}
+\item{bc.method}{The batch correction column to use. One of c('combat', 'limma'). Default is 'limma'}
 
 \item{return.format}{How should the resulting dataframe be formated?
 'Long': Long formated dataframe. (default)
