@@ -60,6 +60,8 @@ readDataFile <- function(file.basename, ext='.tsv', sep='\t') {
 #' @param fname The DirectLFQ matrix.
 #'
 #' @seealso [rDIAUtils::readDataFile]
+#'
+#' @import magrittr
 #' @export
 readDirectLFQMatrix <- function(fname)
 {
@@ -88,6 +90,7 @@ readDirectLFQMatrix <- function(fname)
 #' 
 #' @return A numeric matrix.
 #' 
+#' @import magrittr
 #' @export
 longToMatrix <- function(d, valuesFrom, rowsName, columnsName)
 {

@@ -19,6 +19,7 @@ getName <- function(vec) {
 #' 
 #' @return A ggplot object.
 #' 
+#' @import ggplot2
 #' @export
 PCAScatterPlot <- function(pc, color.col, plot.title=NULL,
                            show.ylab=T, show.xlab=T, show.legend=F)
@@ -45,7 +46,7 @@ PCAScatterPlot <- function(pc, color.col, plot.title=NULL,
     }
 
     # add viridis color scale if color.col is numeric
-    color_scale = ifelse(is.numeric(dat.meta[[color.col]]), scale_color_viridis, scale_color_discrete)
+    color_scale = ifelse(is.numeric(dat.meta[[color.col]]), viridis::scale_color_viridis, scale_color_discrete)
     p <- p + color_scale(name=getName(color.col))
 
     if(!show.legend) { p <- p + guides(color='none') }
@@ -62,6 +63,7 @@ PCAScatterPlot <- function(pc, color.col, plot.title=NULL,
 #' 
 #' @return A patchwork plot object
 #' 
+#' @import patchwork
 #' @export
 arrangePlots <- function(pcs, row.cols, color.cols)
 {

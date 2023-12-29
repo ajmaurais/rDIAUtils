@@ -17,6 +17,7 @@
 #' 
 #' @return Batch correced dataframe.
 #' 
+#' @import magrittr
 #' @export
 batchCorrection <- function(d, quantCol, batch1, batch2=NULL, covariate.cols=NULL,
                             rowsName='precursor', columnsName='replicate', bc.method='limma',

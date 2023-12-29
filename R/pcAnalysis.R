@@ -13,6 +13,7 @@
 #'       x.lab: The x label for x.pc
 #'       y.lab: The y label for y.pc
 #' 
+#' @import magrittr
 #' @export
 pcAnalysis <- function(dat, quantCol,
                        rowsName='precursor', columnsName='replicate',
