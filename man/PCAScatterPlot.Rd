@@ -6,6 +6,7 @@
 \usage{
 PCAScatterPlot(
   pc,
+  dat.metadata,
   color.col,
   plot.title = NULL,
   show.ylab = T,
@@ -15,6 +16,8 @@ PCAScatterPlot(
 }
 \arguments{
 \item{pc}{A PCA matrix.}
+
+\item{dat.metadata}{A dataframe mapping replicate names to metadata terms to use in plots.}
 
 \item{color.col}{Column to use for color aesthetic.}
 

@@ -4,7 +4,7 @@
 \alias{arrangePlots}
 \title{Arange multiple PCA matrices into a plot grid}
 \usage{
-arrangePlots(pcs, row.cols, color.cols)
+arrangePlots(pcs, row.cols, color.cols, dat.metadata)
 }
 \arguments{
 \item{pcs}{A list of PCA matrices.}
@@ -12,6 +12,8 @@ arrangePlots(pcs, row.cols, color.cols)
 \item{row.cols}{Variables to use for rows.}
 
 \item{color.cols}{Variables to use for columns.}
+
+\item{dat.metadata}{A dataframe mapping replicate names to metadata terms to use in plots.}
 }
 \value{
 A patchwork plot object
