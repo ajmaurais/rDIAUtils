@@ -101,3 +101,19 @@ longToMatrix <- function(d, valuesFrom, rowsName, columnsName)
     d.m
 }
 
+#' Convert long dataframe to wide dataframe.
+#' 
+#' @param d Long formated dataframe
+#' @param valuesFrom The name of the column with values to be spread into columns.
+#' @param rowsName Name of the column(s) to keep for each row.
+#' @param columnsName Name of the column to be column names.
+#' 
+#' @return A wide formate dataframe.
+#' 
+#' @import magrittr
+#' @export
+pivotLonger <- function(d, valuesFrom, rowsName, columnsName)
+{
+    dplyr::select(d, all_of(c(valuesFrom, rowsName, columnsName))) %>%
+        tidyr::pivot_wider(names_from=all_of(columnsName), values_from=all_of(valuesFrom))
+}
