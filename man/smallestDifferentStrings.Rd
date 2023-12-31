@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{smallestDifferentStrings}
 \alias{smallestDifferentStrings}
-\title{Remove the substring which is shared by the begining and end of all strings in a CharacterVector.}
+\title{Remove the substring which is shared by the beginning and end of all strings in a CharacterVector.}
 \usage{
 smallestDifferentStrings(cStrings, verbose = TRUE)
 }
@@ -12,8 +12,8 @@ smallestDifferentStrings(cStrings, verbose = TRUE)
 \item{verbose}{Print verbose output?}
 }
 \value{
-CharacterVector with common begining and ending removed.
+CharacterVector with common beginning and ending removed.
 }
 \description{
-Remove the substring which is shared by the begining and end of all strings in a CharacterVector.
+Remove the substring which is shared by the beginning and end of all strings in a CharacterVector.
 }

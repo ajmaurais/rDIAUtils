@@ -2,7 +2,7 @@
 % Please edit documentation in R/pcAnalysis.R
 \name{pcAnalysis}
 \alias{pcAnalysis}
-\title{Perform PCA analysis on a column in a long formated dataframe}
+\title{Perform PCA analysis on a column in a long formatted dataframe}
 \usage{
 pcAnalysis(
   dat,
@@ -14,7 +14,7 @@ pcAnalysis(
 )
 }
 \arguments{
-\item{dat}{Long formated dataframe}
+\item{dat}{Long formatted dataframe}
 
 \item{quantCol}{The name of the column with quantative values to analyze}
 
@@ -33,5 +33,5 @@ list with 3 slots:
       y.lab: The y label for y.pc
 }
 \description{
-Perform PCA analysis on a column in a long formated dataframe
+Perform PCA analysis on a column in a long formatted dataframe
 }

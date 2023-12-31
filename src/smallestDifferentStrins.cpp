@@ -3,11 +3,11 @@
 #include <vector>
 #include <Rcpp.h>
 
-//' @title Remove the substring which is shared by the begining and end of all strings in a CharacterVector.
+//' @title Remove the substring which is shared by the beginning and end of all strings in a CharacterVector.
 //'
 //' @param cStrings The CharacterVector.
 //' @param verbose Print verbose output?
-//' @return CharacterVector with common begining and ending removed.
+//' @return CharacterVector with common beginning and ending removed.
 //'
 // [[Rcpp::export]]
 Rcpp::CharacterVector smallestDifferentStrings(Rcpp::CharacterVector cStrings, bool verbose = true)

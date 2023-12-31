@@ -7,7 +7,7 @@
 longToMatrix(d, valuesFrom, rowsName, columnsName)
 }
 \arguments{
-\item{d}{Long formated dataframe}
+\item{d}{Long formatted dataframe}
 
 \item{valuesFrom}{The name of the column with values that should be in the matrix.}
 

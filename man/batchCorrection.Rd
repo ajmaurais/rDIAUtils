@@ -17,7 +17,7 @@ batchCorrection(
 )
 }
 \arguments{
-\item{d}{Long formated dataframe where each row is an observation for a single condition.}
+\item{d}{Long formatted dataframe where each row is an observation for a single condition.}
 
 \item{quantCol}{Name of the column with quantative values.}
 
@@ -33,13 +33,13 @@ batchCorrection(
 
 \item{bc.method}{The batch correction column to use. One of c('combat', 'limma'). Default is 'limma'}
 
-\item{return.format}{How should the resulting dataframe be formated?
-'Long': Long formated dataframe. (default)
-'Wide': Wide formated dataframe.
-'Matrix': Wide fromated numeric matrix.}
+\item{return.format}{How should the resulting dataframe be formatted?
+'Long': Long formatted dataframe. (default)
+'Wide': Wide formatted dataframe.
+'Matrix': Wide formatted numeric matrix.}
 }
 \value{
-Batch correced dataframe.
+Batch corrected dataframe.
 }
 \description{
 Perform batch correction using the selected method.

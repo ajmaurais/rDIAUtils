@@ -7,7 +7,7 @@
 pivotLonger(d, valuesFrom, rowsName, columnsName)
 }
 \arguments{
-\item{d}{Long formated dataframe}
+\item{d}{Long formatted dataframe}
 
 \item{valuesFrom}{The name of the column with values to be spread into columns.}
 
@@ -16,7 +16,7 @@ pivotLonger(d, valuesFrom, rowsName, columnsName)
 \item{columnsName}{Name of the column to be column names.}
 }
 \value{
-A wide formate dataframe.
+A wide format dataframe.
 }
 \description{
 Convert long dataframe to wide dataframe.

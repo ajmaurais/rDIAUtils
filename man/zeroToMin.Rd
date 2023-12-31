@@ -2,10 +2,10 @@
 % Please edit documentation in R/dataCleaning.R
 \name{zeroToMin}
 \alias{zeroToMin}
-\title{Set zeros to the mininum non-zero area in each batch}
+\title{Set zeros to the minimum non-zero area in each batch}
 \usage{
 zeroToMin(x)
 }
 \description{
-Set zeros to the mininum non-zero area in each batch
+Set zeros to the minimum non-zero area in each batch
 }

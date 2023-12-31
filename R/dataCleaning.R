@@ -23,7 +23,7 @@ parseAcquiredTime <- function(d, acquiredTimeCol='acquiredTime') {
     return(d)
 }
 
-#' Set zeros to the mininum non-zero area in each batch
+#' Set zeros to the minimum non-zero area in each batch
 #' 
 #' @export
 zeroToMin <- function(x) {
@@ -53,7 +53,7 @@ readDataFile <- function(file.basename, ext='.tsv', sep='\t') {
     ret
 }
 
-#' Parse DirectLFQ matrix into a long formated dataframe.
+#' Parse DirectLFQ matrix into a long formatted dataframe.
 #'
 #' Also save intermediate .Rda file similar to rDIAUtils::readDataFile.
 #'
@@ -83,7 +83,7 @@ readDirectLFQMatrix <- function(fname)
 
 #' Convert long dataframe to wide numeric matrix.
 #' 
-#' @param d Long formated dataframe
+#' @param d Long formatted dataframe
 #' @param valuesFrom The name of the column with values that should be in the matrix.
 #' @param rowsName Name of the column to be row names in the matrix
 #' @param columnsName Name of the column to be column names in the matrix
@@ -103,12 +103,12 @@ longToMatrix <- function(d, valuesFrom, rowsName, columnsName)
 
 #' Convert long dataframe to wide dataframe.
 #' 
-#' @param d Long formated dataframe
+#' @param d Long formatted dataframe
 #' @param valuesFrom The name of the column with values to be spread into columns.
 #' @param rowsName Name of the column(s) to keep for each row.
 #' @param columnsName Name of the column to be column names.
 #' 
-#' @return A wide formate dataframe.
+#' @return A wide format dataframe.
 #' 
 #' @import magrittr
 #' @export

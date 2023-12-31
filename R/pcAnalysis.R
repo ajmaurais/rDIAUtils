@@ -1,7 +1,7 @@
 
-#' Perform PCA analysis on a column in a long formated dataframe
+#' Perform PCA analysis on a column in a long formatted dataframe
 #' 
-#' @param dat Long formated dataframe
+#' @param dat Long formatted dataframe
 #' @param quantCol The name of the column with quantative values to analyze
 #' @param rowsName Name of the column to be row names in the wide matrix
 #' @param columnsName Name of the column to be column names in the wide matrix

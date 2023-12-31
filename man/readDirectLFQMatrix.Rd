@@ -2,7 +2,7 @@
 % Please edit documentation in R/dataCleaning.R
 \name{readDirectLFQMatrix}
 \alias{readDirectLFQMatrix}
-\title{Parse DirectLFQ matrix into a long formated dataframe.}
+\title{Parse DirectLFQ matrix into a long formatted dataframe.}
 \usage{
 readDirectLFQMatrix(fname)
 }

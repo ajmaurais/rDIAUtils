@@ -1,7 +1,7 @@
 
 #' Perform batch correction using the selected method.
 #' 
-#' @param d Long formated dataframe where each row is an observation for a single condition.
+#' @param d Long formatted dataframe where each row is an observation for a single condition.
 #' @param quantCol Name of the column with quantative values.
 #' @param batch1 Name of the column to use for the first batch.
 #' 
@@ -10,12 +10,12 @@
 #' @param rowsName Name of the column to be row names in the wide matrix. Default is 'precursor'
 #' @param columnsName Name of the column to be column names in the wide matrix. Default is 'replicate'
 #' @param bc.method The batch correction column to use. One of c('combat', 'limma'). Default is 'limma'
-#' @param return.format How should the resulting dataframe be formated?
-#'              'Long': Long formated dataframe. (default)
-#'              'Wide': Wide formated dataframe.
-#'              'Matrix': Wide fromated numeric matrix.
+#' @param return.format How should the resulting dataframe be formatted?
+#'              'Long': Long formatted dataframe. (default)
+#'              'Wide': Wide formatted dataframe.
+#'              'Matrix': Wide formatted numeric matrix.
 #' 
-#' @return Batch correced dataframe.
+#' @return Batch corrected dataframe.
 #' 
 #' @import magrittr
 #' @export
