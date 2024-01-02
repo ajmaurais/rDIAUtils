@@ -23,7 +23,7 @@ parseAcquiredTime <- function(d, acquiredTimeCol='acquiredTime') {
     return(d)
 }
 
-#' Set zeros to the minimum non-zero area in each batch
+#' Set zeros to the minimum non-zero area in x.
 #' 
 #' @export
 zeroToMin <- function(x) {
