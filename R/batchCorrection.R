@@ -51,6 +51,10 @@ batchCorrection <- function(d, quantCol, batch1, batch2=NULL, covariate.cols=NUL
             stop('ComBat only supports 1 batch!')
         }
 
+        if(length(covariate.cols) > 2) {
+            stop('ComBat only supports up to 2 covariate variables.')
+        }
+
         formula_str <- paste('~', paste0('d.labels[[\"', covariate.cols, '\"]]', collapse=' + '))
         modcombat <- if(is.null(covariate.cols)) NULL else { model.matrix(formula(formula_str), data = d) }
 
