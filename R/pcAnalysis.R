@@ -17,7 +17,7 @@
 #' @export
 pcAnalysis <- function(dat, quantCol,
                        rowsName='precursor', columnsName='replicate',
-                       x.pc=1, y.pc=2)
+                       x.pc=1, y.pc=2, scale=TRUE)
 {
 
     requiredColumns <- c(quantCol, rowsName, columnsName)
@@ -32,7 +32,7 @@ pcAnalysis <- function(dat, quantCol,
     rownames(dat.m) <- dat.w[[rowsName]]
 
     res.d <- svd(dat.m - rowMeans(dat.m))
-    pca <- prcomp(t(dat.m), retx = T, center = T, scale = T)
+    pca <- prcomp(t(dat.m), retx = T, center = T, scale=scale)
     pcVar = round((res.d$d^2)/sum(res.d$d^2) * 100, 2)
     PCs <- data.frame(pc = 1:length(pcVar), pcVar = pcVar)
     pc <- data.frame(pca$x)
