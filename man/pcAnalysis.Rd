@@ -10,7 +10,8 @@ pcAnalysis(
   rowsName = "precursor",
   columnsName = "replicate",
   x.pc = 1,
-  y.pc = 2
+  y.pc = 2,
+  scale = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ pcAnalysis(
 \item{x.pc}{PC 1}
 
 \item{y.pc}{PC 2}
+
+\item{scale}{Scale argument passed to prcomp}
 }
 \value{
 list with 3 slots:

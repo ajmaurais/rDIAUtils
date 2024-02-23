@@ -11,7 +11,8 @@ PCAScatterPlot(
   plot.title = NULL,
   show.ylab = T,
   show.xlab = T,
-  show.legend = F
+  show.legend = F,
+  legend.maxLabelPerCol = 12
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ PCAScatterPlot(
 \item{show.xlab}{Show x axis label?}
 
 \item{show.legend}{Show legend for color aesthetic?}
+
+\item{legend.maxLabelPerCol}{An integer indicating the maximum labels per column in the legend.}
 }
 \value{
 A ggplot object.
