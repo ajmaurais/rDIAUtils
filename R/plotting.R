@@ -9,7 +9,7 @@ getName <- function(vec) {
 }
 
 #' Make PCA scatter plot.
-#' 
+#'
 #' @param pc A PCA matrix.
 #' @param dat.metadata A dataframe mapping replicate names to metadata terms to use in plots.
 #' @param color.col Column to use for color aesthetic.
@@ -17,13 +17,14 @@ getName <- function(vec) {
 #' @param show.ylab Show y axis label?
 #' @param show.xlab Show x axis label?
 #' @param show.legend Show legend for color aesthetic?
-#' 
+#' @param legend.maxLabelPerCol An integer indicating the maximum labels per column in the legend.
+#'
 #' @return A ggplot object.
-#' 
+#'
 #' @import ggplot2
 #' @export
 PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
-                           show.ylab=T, show.xlab=T, show.legend=F)
+                           show.ylab=T, show.xlab=T, show.legend=F, legend.maxLabelPerCol=12)
 {
     dat <- dplyr::left_join(pc[['pc']], dat.metadata, by='replicate')
 
@@ -52,24 +53,31 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
                          scale_color_discrete)
     p <- p + color_scale(name=getName(color.col))
 
-    if(!show.legend) { p <- p + guides(color='none') }
+    legend.ncol = ceiling(length(unique(dat.metadata[[color.col]])) / legend.maxLabelPerCol)
+
+    if(!show.legend) {
+        p <- p + guides(color='none')
+    } else {
+        p <- p + guides(color=guide_legend(ncol=legend.ncol))
+    }
     if(!is.null(plot.title)) { p <- p + ggtitle(plot.title) }
-    
+
     p
 }
 
 #' Arange multiple PCA matrices into a plot grid
-#' 
+#'
 #' @param pcs A list of PCA matrices.
 #' @param row.cols Variables to use for rows.
 #' @param color.cols Variables to use for columns.
 #' @param dat.metadata A dataframe mapping replicate names to metadata terms to use in plots.
-#' 
+#' @param legend.maxLabelPerCol An integer indicating the maximum labels per column in the legend.
+#'
 #' @return A patchwork plot object
-#' 
+#'
 #' @import patchwork
 #' @export
-arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata)
+arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata, legend.maxLabelPerCol=12)
 {
     p <- NULL # initlize empty plot group
     for(color.i in 1:length(color.cols))
@@ -83,14 +91,16 @@ arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata)
             if(is.null(p)) {
                 p <- PCAScatterPlot(pcs[[row.cols[row.i]]], dat.metadata,
                                     color.cols[color.i], plot.title=plot.title,
-                                    show.xlab=show.xlab, show.legend=show.legend)
+                                    show.xlab=show.xlab, show.legend=show.legend,
+                                    legend.maxLabelPerCol=legend.maxLabelPerCol)
             } else {
                 p <- p + PCAScatterPlot(pcs[[row.cols[row.i]]], dat.metadata,
                                         color.cols[color.i], plot.title=plot.title,
-                                        show.xlab=show.xlab, show.legend=show.legend)
+                                        show.xlab=show.xlab, show.legend=show.legend,
+                                        legend.maxLabelPerCol=legend.maxLabelPerCol)
             }
         }
     }
-    p + patchwork::plot_layout(nrow=length(color.cols), byrow=T) 
+    p + patchwork::plot_layout(nrow=length(color.cols), byrow=T)
 }
 

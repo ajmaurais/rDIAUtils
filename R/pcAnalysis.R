@@ -7,6 +7,7 @@
 #' @param columnsName Name of the column to be column names in the wide matrix
 #' @param x.pc PC 1
 #' @param y.pc PC 2
+#' @param scale Scale argument passed to prcomp
 #'   
 #' @return list with 3 slots:
 #'       pc: The pc dataframe

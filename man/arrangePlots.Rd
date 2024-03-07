@@ -4,7 +4,13 @@
 \alias{arrangePlots}
 \title{Arange multiple PCA matrices into a plot grid}
 \usage{
-arrangePlots(pcs, row.cols, color.cols, dat.metadata)
+arrangePlots(
+  pcs,
+  row.cols,
+  color.cols,
+  dat.metadata,
+  legend.maxLabelPerCol = 12
+)
 }
 \arguments{
 \item{pcs}{A list of PCA matrices.}
@@ -14,6 +20,8 @@ arrangePlots(pcs, row.cols, color.cols, dat.metadata)
 \item{color.cols}{Variables to use for columns.}
 
 \item{dat.metadata}{A dataframe mapping replicate names to metadata terms to use in plots.}
+
+\item{legend.maxLabelPerCol}{An integer indicating the maximum labels per column in the legend.}
 }
 \value{
 A patchwork plot object
