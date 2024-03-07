@@ -48,12 +48,15 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
     }
 
     # add viridis color scale if color.col is numeric
-    color_scale = ifelse(is.numeric(dat.metadata[[color.col]]),
-                         viridis::scale_color_viridis,
-                         scale_color_discrete)
-    p <- p + color_scale(name=getName(color.col))
+    if(is.numeric(dat.metadata[[color.col]])) {
+        color_scale = viridis::scale_color_viridis
+        legend.ncol = NULL
+    } else {
+        color_scale = scale_color_discrete
+        legend.ncol = ceiling(length(unique(dat.metadata[[color.col]])) / legend.maxLabelPerCol)
+    }
 
-    legend.ncol = ceiling(length(unique(dat.metadata[[color.col]])) / legend.maxLabelPerCol)
+    p <- p + color_scale(name=getName(color.col))
 
     if(!show.legend) {
         p <- p + guides(color='none')
