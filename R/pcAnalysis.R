@@ -31,6 +31,14 @@ pcAnalysis <- function(dat, quantCol,
     dat.m <- as.matrix(dplyr::select(dat.w, !one_of(rowsName)))
     rownames(dat.m) <- dat.w[[rowsName]]
 
+    # Remove rows with zero variance (if any)
+    zero.var <- apply(dat.m, 1, var)
+    zero.var <- names(zero.var[zero.var == 0])
+    if(length(zero.var) > 0) {
+        warning(paste('Removing', length(zero.var), 'rows with 0 variance.'))
+        dat.m <- dat.m[!rownames(dat.m) %in% zero.var,]
+    }
+
     res.d <- svd(dat.m - rowMeans(dat.m))
     pca <- prcomp(t(dat.m), retx = T, center = T, scale=scale)
     pcVar = round((res.d$d^2)/sum(res.d$d^2) * 100, 2)
