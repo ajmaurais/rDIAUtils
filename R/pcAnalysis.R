@@ -8,6 +8,7 @@
 #' @param x.pc PC 1
 #' @param y.pc PC 2
 #' @param scale Scale argument passed to prcomp
+#' @param na.rm Remove rows with NAs? Default is False.
 #'   
 #' @return list with 3 slots:
 #'       pc: The pc dataframe
@@ -18,7 +19,7 @@
 #' @export
 pcAnalysis <- function(dat, quantCol,
                        rowsName='precursor', columnsName='replicate',
-                       x.pc=1, y.pc=2, scale=TRUE)
+                       x.pc=1, y.pc=2, scale=TRUE, na.rm=FALSE)
 {
 
     requiredColumns <- c(quantCol, rowsName, columnsName)
@@ -26,11 +27,22 @@ pcAnalysis <- function(dat, quantCol,
         stop('One or more required column names are missing from data frame!')
     }
 
+    # pivot wider
     dat.w <- dplyr::select(dat, dplyr::all_of(c(columnsName, rowsName, quantCol))) %>%
         tidyr::pivot_wider(names_from = dplyr::all_of(columnsName), values_from = dplyr::all_of(quantCol))
 
+    # convert to matrix
     dat.m <- as.matrix(dplyr::select(dat.w, !one_of(rowsName)))
     rownames(dat.m) <- dat.w[[rowsName]]
+
+    # check for missing values
+    missing.sele <- apply(dat.m, 1, function(x) any(is.na(x)))
+    if(na.rm & any(missing.sele)) {
+        warning(paste('Removed', length(which(missing.sele)), 'row(s) with missing values!'))
+        dat.m <- dat.m[!missing.sele,]
+    } else if(any(missing.sele)) {
+        stop(paste('There are', length(which(missing.sele)), 'row(s) with missing values!'))
+    }
 
     res.d <- svd(dat.m - rowMeans(dat.m))
     pca <- prcomp(t(dat.m), retx = T, center = T, scale=scale)
