@@ -42,6 +42,13 @@ pcAnalysis <- function(dat, quantCol,
         dat.m <- dat.m[!missing.sele,]
     } else if(any(missing.sele)) {
         stop(paste('There are', length(which(missing.sele)), 'row(s) with missing values!'))
+
+    # Remove rows with zero variance (if any)
+    zero.var <- apply(dat.m, 1, var)
+    zero.var <- names(zero.var[zero.var == 0])
+    if(length(zero.var) > 0) {
+        warning(paste('Removing', length(zero.var), 'rows with 0 variance.'))
+        dat.m <- dat.m[!rownames(dat.m) %in% zero.var,]
     }
 
     res.d <- svd(dat.m - rowMeans(dat.m))

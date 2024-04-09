@@ -53,12 +53,13 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
                          scale_color_discrete)
     p <- p + color_scale(name=getName(color.col))
 
-    legend.ncol = ceiling(length(unique(dat.metadata[[color.col]])) / legend.maxLabelPerCol)
-
     if(!show.legend) {
         p <- p + guides(color='none')
     } else {
-        p <- p + guides(color=guide_legend(ncol=legend.ncol))
+        if(!is.numeric(dat.metadata[[color.col]])) {
+            legend.ncol = ceiling(length(unique(dat.metadata[[color.col]])) / legend.maxLabelPerCol)
+            p <- p + guides(color=guide_legend(ncol=legend.ncol))
+        }
     }
     if(!is.null(plot.title)) { p <- p + ggtitle(plot.title) }
 
