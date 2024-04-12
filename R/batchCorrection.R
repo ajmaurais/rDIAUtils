@@ -43,6 +43,19 @@ batchCorrection <- function(d, quantCol, batch1, batch2=NULL, covariate.cols=NUL
         d.labels[[column]] <- factor(d.labels[[column]])
     }
     d.labels <- d.labels[which(d.labels[[columnsName]] %in% colnames(d.m)),]
+
+    # check for replicates with missing metadata
+    if(length(label.cols) > 1) {
+        na.replicates.sele <- apply(d.labels[,label.cols], 1, function(x) any(is.na(x)))
+    } else {
+        na.replicates.sele <- is.na(d.labels[[label.cols]])
+    }
+    if(any(na.replicates.sele)) {
+        for(row_i in which(na.replicates.sele)) {
+            warning(paste('Missing metadata for replicate:', d.labels$replicate[row_i]))
+        }
+        stop(paste('Missing metadata annotations for', length(which(na.replicates.sele)), 'replicate(s)!'))
+    }
     
     # Actually do batch correction
     if(bc.method == 'combat')
