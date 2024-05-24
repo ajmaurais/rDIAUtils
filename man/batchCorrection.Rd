@@ -13,6 +13,7 @@ batchCorrection(
   rowsName = "precursor",
   columnsName = "replicate",
   bc.method = "limma",
+  na.rm = FALSE,
   return.format = "long"
 )
 }
@@ -32,6 +33,8 @@ batchCorrection(
 \item{columnsName}{Name of the column to be column names in the wide matrix. Default is 'replicate'}
 
 \item{bc.method}{The batch correction column to use. One of c('combat', 'limma'). Default is 'limma'}
+
+\item{na.rm}{Remove matrix rows with NAs? Default is False.}
 
 \item{return.format}{How should the resulting dataframe be formatted?
 'Long': Long formatted dataframe. (default)

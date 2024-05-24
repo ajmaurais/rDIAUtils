@@ -10,6 +10,7 @@
 #' @param rowsName Name of the column to be row names in the wide matrix. Default is 'precursor'
 #' @param columnsName Name of the column to be column names in the wide matrix. Default is 'replicate'
 #' @param bc.method The batch correction column to use. One of c('combat', 'limma'). Default is 'limma'
+#' @param na.rm Remove matrix rows with NAs? Default is False.
 #' @param return.format How should the resulting dataframe be formatted?
 #'              'Long': Long formatted dataframe. (default)
 #'              'Wide': Wide formatted dataframe.
@@ -21,7 +22,7 @@
 #' @export
 batchCorrection <- function(d, quantCol, batch1, batch2=NULL, covariate.cols=NULL,
                             rowsName='precursor', columnsName='replicate', bc.method='limma',
-                            return.format='long')
+                            na.rm=FALSE, return.format='long')
 {
     batch.cols <- c(batch1)
     if(!is.null(batch2)) {
@@ -35,6 +36,15 @@ batchCorrection <- function(d, quantCol, batch1, batch2=NULL, covariate.cols=NUL
 
     # convert to numeric matrix for batch correction function
     d.m <- longToMatrix(d, quantCol, rowsName, columnsName)
+
+    # check for missing values
+    missing.sele <- apply(d.m, 1, function(x) any(is.na(x)))
+    if(na.rm & any(missing.sele)) {
+        warning(paste('Removed', length(which(missing.sele)), 'row(s) with missing values!'))
+        d.m <- d.m[!missing.sele,]
+    } else if(any(missing.sele)) {
+        stop(paste('There are', length(which(missing.sele)), 'row(s) with missing values!'))
+    }
 
     # make labels dataframe
     d.labels <- d %>% dplyr::select(dplyr::all_of(c(columnsName, label.cols))) %>%
