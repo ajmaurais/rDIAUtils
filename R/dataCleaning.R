@@ -134,7 +134,7 @@ readWideMetadata <- function(conn)
     dat.rep <- DBI::dbGetQuery(conn,
                                 'SELECT
                                     r.replicate,
-                                    r.replicateId,
+                                    r.id as replicateId,
                                     r.project,
                                     r.ticArea,
                                     r.acquiredRank
