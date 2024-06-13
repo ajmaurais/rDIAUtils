@@ -138,7 +138,8 @@ readWideMetadata <- function(conn)
                                     r.project,
                                     r.ticArea,
                                     r.acquiredRank
-                                FROM replicates r;')
+                                FROM replicates r
+                                WHERE r.includeRep == TRUE')
     dat.meta.l <- DBI::dbGetQuery(conn, 'SELECT * FROM sampleMetadata;')
     meta.types <- DBI::dbGetQuery(conn, 'SELECT annotationKey, annotationType
                                          FROM sampleMetadataTypes;')
