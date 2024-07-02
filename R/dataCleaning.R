@@ -150,7 +150,7 @@ readWideMetadata <- function(conn)
         if(x == 'BOOL') { return(as.logical) }
         if(x == 'INT') { return(as.integer) }
         if(x == 'FLOAT') { return(as.numeric) }
-        if(x == 'STRING') { return(function(x) {x}) }
+        if(x == 'STRING') { return(function(x) {ifelse(x == '', NA, x)}) }
         if(x == 'NULL') { return(function(x) {NA}) }
         stop(paste(x, 'is an unknown variable type!'))
     })
