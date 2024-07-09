@@ -15,5 +15,5 @@ Replicate and metadata dataframe
 \description{
 Metadata is converted from long format used in database and converted to wide format.
 The values from the sampleMetadataTypes table are then used to convert each column
-into the appropiate date type.
+into the appropriate date type.
 }
