@@ -28,8 +28,9 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 {
     dat <- dplyr::left_join(pc[['pc']], dat.metadata, by='replicate')
 
-    p <- ggplot(dat, aes(x=PC1, y=PC2, color=get(color.col))) +
-        geom_point() +
+    p <- ggplot(dat, aes(x=PC1, y=PC2, color=get(color.col),
+                         tooltip=replicate, data_id=replicate)) +
+        ggiraph::geom_point_interactive() +
         theme_bw() +
         theme(panel.grid=element_blank(),
               plot.title=element_text(hjust=0.5))
@@ -72,13 +73,15 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 #' @param row.cols Variables to use for rows.
 #' @param color.cols Variables to use for columns.
 #' @param dat.metadata A dataframe mapping replicate names to metadata terms to use in plots.
+#' @param interactive Should plot elements have interactive tool tip?
 #' @param legend.maxLabelPerCol An integer indicating the maximum labels per column in the legend.
 #'
 #' @return A patchwork plot object
 #'
 #' @import patchwork
 #' @export
-arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata, legend.maxLabelPerCol=12)
+arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata,
+                         interactive=F, legend.maxLabelPerCol=12)
 {
     p <- NULL # initlize empty plot group
     for(color.i in 1:length(color.cols))
@@ -102,6 +105,11 @@ arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata, legend.maxLabe
             }
         }
     }
-    p + patchwork::plot_layout(nrow=length(color.cols), byrow=T)
+
+    if(interactive) {
+        return(ggiraph::girafe(ggobj=p + patchwork::plot_layout(nrow=length(color.cols), byrow=T)))
+    } else {
+        return(p + patchwork::plot_layout(nrow=length(color.cols), byrow=T))
+    }
 }
 
