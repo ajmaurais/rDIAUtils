@@ -17,6 +17,7 @@ getName <- function(vec) {
 #' @param show.ylab Show y axis label?
 #' @param show.xlab Show x axis label?
 #' @param show.legend Show legend for color aesthetic?
+#' @param interactive Use ggiraph::geom_point_interactive?
 #' @param legend.maxLabelPerCol An integer indicating the maximum labels per column in the legend.
 #'
 #' @return A ggplot object.
@@ -24,14 +25,21 @@ getName <- function(vec) {
 #' @import ggplot2
 #' @export
 PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
-                           show.ylab=T, show.xlab=T, show.legend=F, legend.maxLabelPerCol=12)
+                           show.ylab=T, show.xlab=T, show.legend=F,
+                           interactive=F, legend.maxLabelPerCol=12)
 {
     dat <- dplyr::left_join(pc[['pc']], dat.metadata, by='replicate')
 
     p <- ggplot(dat, aes(x=PC1, y=PC2, color=get(color.col),
-                         tooltip=replicate, data_id=replicate)) +
-        ggiraph::geom_point_interactive() +
-        theme_bw() +
+                         tooltip=replicate, data_id=replicate))
+
+    if(interactive) {
+        p <- p + ggiraph::geom_point_interactive()
+    } else {
+        p <- p + geom_point()
+    }
+
+    p <- p + theme_bw() +
         theme(panel.grid=element_blank(),
               plot.title=element_text(hjust=0.5))
 
@@ -73,7 +81,7 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 #' @param row.cols Variables to use for rows.
 #' @param color.cols Variables to use for columns.
 #' @param dat.metadata A dataframe mapping replicate names to metadata terms to use in plots.
-#' @param interactive Should plot elements have interactive tool tip?
+#' @param interactive Use ggiraph::geom_point_interactive?
 #' @param legend.maxLabelPerCol An integer indicating the maximum labels per column in the legend.
 #'
 #' @return A patchwork plot object
@@ -96,20 +104,18 @@ arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata,
                 p <- PCAScatterPlot(pcs[[row.cols[row.i]]], dat.metadata,
                                     color.cols[color.i], plot.title=plot.title,
                                     show.xlab=show.xlab, show.legend=show.legend,
+                                    interactive=interactive,
                                     legend.maxLabelPerCol=legend.maxLabelPerCol)
             } else {
                 p <- p + PCAScatterPlot(pcs[[row.cols[row.i]]], dat.metadata,
                                         color.cols[color.i], plot.title=plot.title,
                                         show.xlab=show.xlab, show.legend=show.legend,
+                                        interactive=interactive,
                                         legend.maxLabelPerCol=legend.maxLabelPerCol)
             }
         }
     }
 
-    if(interactive) {
-        return(ggiraph::girafe(ggobj=p + patchwork::plot_layout(nrow=length(color.cols), byrow=T)))
-    } else {
-        return(p + patchwork::plot_layout(nrow=length(color.cols), byrow=T))
-    }
+    p + patchwork::plot_layout(nrow=length(color.cols), byrow=T)
 }
 
