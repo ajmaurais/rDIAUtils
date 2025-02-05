@@ -9,7 +9,6 @@ Description: Some useful functions for performing normalization and batch correc
 License: MIT
 Encoding: UTF-8
 Imports:
-    Rcpp (>= 1.0.0),
     dplyr (>= 1.1.3),
     tidyr (>= 1.3.0),
     patchwork (>= 1.1.3),
@@ -17,6 +16,5 @@ Imports:
     viridis (>= 0.6.4),
     limma (>= 1.56.2),
     sva (>= 3.48.0)
-LinkingTo: Rcpp
-NeedsCompilation: yes
+NeedsCompilation: no
 RoxygenNote: 7.3.1
