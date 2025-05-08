@@ -17,4 +17,4 @@ Imports:
     limma (>= 1.56.2),
     sva (>= 3.48.0)
 NeedsCompilation: no
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2

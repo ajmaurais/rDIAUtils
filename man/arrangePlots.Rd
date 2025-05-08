@@ -9,6 +9,7 @@ arrangePlots(
   row.cols,
   color.cols,
   dat.metadata,
+  interactive = F,
   legend.maxLabelPerCol = 12
 )
 }
@@ -20,6 +21,8 @@ arrangePlots(
 \item{color.cols}{Variables to use for columns.}
 
 \item{dat.metadata}{A dataframe mapping replicate names to metadata terms to use in plots.}
+
+\item{interactive}{Use ggiraph::geom_point_interactive?}
 
 \item{legend.maxLabelPerCol}{An integer indicating the maximum labels per column in the legend.}
 }

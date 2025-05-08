@@ -112,7 +112,7 @@ longToMatrix <- function(d, valuesFrom, rowsName, columnsName)
 #'
 #' @import magrittr
 #' @export
-pivotLonger <- function(d, valuesFrom, rowsName, columnsName)
+pivotWider <- function(d, valuesFrom, rowsName, columnsName)
 {
     dplyr::select(d, all_of(c(valuesFrom, rowsName, columnsName))) %>%
         tidyr::pivot_wider(names_from=all_of(columnsName), values_from=all_of(valuesFrom))

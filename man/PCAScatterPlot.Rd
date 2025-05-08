@@ -12,6 +12,7 @@ PCAScatterPlot(
   show.ylab = T,
   show.xlab = T,
   show.legend = F,
+  interactive = F,
   legend.maxLabelPerCol = 12
 )
 }
@@ -29,6 +30,8 @@ PCAScatterPlot(
 \item{show.xlab}{Show x axis label?}
 
 \item{show.legend}{Show legend for color aesthetic?}
+
+\item{interactive}{Use ggiraph::geom_point_interactive?}
 
 \item{legend.maxLabelPerCol}{An integer indicating the maximum labels per column in the legend.}
 }
