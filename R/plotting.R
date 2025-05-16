@@ -19,6 +19,7 @@ getName <- function(vec) {
 #' @param show.legend Show legend for color aesthetic?
 #' @param interactive Use ggiraph::geom_point_interactive?
 #' @param legend.maxLabelPerCol An integer indicating the maximum labels per column in the legend.
+#' @param ... Additional arguments passed to plot theme()
 #'
 #' @return A ggplot object.
 #'
@@ -26,7 +27,7 @@ getName <- function(vec) {
 #' @export
 PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
                            show.ylab=T, show.xlab=T, show.legend=F,
-                           interactive=F, legend.maxLabelPerCol=12)
+                           interactive=F, legend.maxLabelPerCol=12, ...)
 {
     dat <- dplyr::left_join(pc[['pc']], dat.metadata, by='replicate')
 
@@ -41,18 +42,18 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 
     p <- p + theme_bw() +
         theme(panel.grid=element_blank(),
-              plot.title=element_text(hjust=0.5))
+              plot.title=element_text(hjust=0.5), ...)
 
     if(show.ylab) {
         p <- p + ylab(pc[['y.lab']])
     } else {
-        p <- p + theme(axis.text.y=element_blank(), axis.ticks.y=element_blank()) +
+        p <- p + theme(..., axis.text.y=element_blank(), axis.ticks.y=element_blank()) +
             ylab(NULL)
     }
     if(show.xlab) {
         p <- p + xlab(pc[['x.lab']])
     } else {
-        p <- p + theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+        p <- p + theme(..., axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
             xlab(NULL)
     }
 
@@ -83,13 +84,14 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 #' @param dat.metadata A dataframe mapping replicate names to metadata terms to use in plots.
 #' @param interactive Use ggiraph::geom_point_interactive?
 #' @param legend.maxLabelPerCol An integer indicating the maximum labels per column in the legend.
+#' @param ... Additional arguments passed to plot theme()
 #'
 #' @return A patchwork plot object
 #'
 #' @import patchwork
 #' @export
 arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata,
-                         interactive=F, legend.maxLabelPerCol=12)
+                         interactive=F, legend.maxLabelPerCol=12, ...)
 {
     p <- NULL # initlize empty plot group
     for(color.i in 1:length(color.cols))
@@ -105,13 +107,13 @@ arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata,
                                     color.cols[color.i], plot.title=plot.title,
                                     show.xlab=show.xlab, show.legend=show.legend,
                                     interactive=interactive,
-                                    legend.maxLabelPerCol=legend.maxLabelPerCol)
+                                    legend.maxLabelPerCol=legend.maxLabelPerCol, ...)
             } else {
                 p <- p + PCAScatterPlot(pcs[[row.cols[row.i]]], dat.metadata,
                                         color.cols[color.i], plot.title=plot.title,
                                         show.xlab=show.xlab, show.legend=show.legend,
                                         interactive=interactive,
-                                        legend.maxLabelPerCol=legend.maxLabelPerCol)
+                                        legend.maxLabelPerCol=legend.maxLabelPerCol, ...)
             }
         }
     }

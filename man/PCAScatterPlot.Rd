@@ -13,7 +13,8 @@ PCAScatterPlot(
   show.xlab = T,
   show.legend = F,
   interactive = F,
-  legend.maxLabelPerCol = 12
+  legend.maxLabelPerCol = 12,
+  ...
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ PCAScatterPlot(
 \item{interactive}{Use ggiraph::geom_point_interactive?}
 
 \item{legend.maxLabelPerCol}{An integer indicating the maximum labels per column in the legend.}
+
+\item{...}{Additional arguments passed to plot theme()}
 }
 \value{
 A ggplot object.

@@ -10,7 +10,8 @@ arrangePlots(
   color.cols,
   dat.metadata,
   interactive = F,
-  legend.maxLabelPerCol = 12
+  legend.maxLabelPerCol = 12,
+  ...
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ arrangePlots(
 \item{interactive}{Use ggiraph::geom_point_interactive?}
 
 \item{legend.maxLabelPerCol}{An integer indicating the maximum labels per column in the legend.}
+
+\item{...}{Additional arguments passed to plot theme()}
 }
 \value{
 A patchwork plot object
