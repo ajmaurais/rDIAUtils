@@ -84,6 +84,8 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 #' @param dat.metadata A dataframe mapping replicate names to metadata terms to use in plots.
 #' @param interactive Use ggiraph::geom_point_interactive?
 #' @param legend.maxLabelPerCol An integer indicating the maximum labels per column in the legend.
+#' @param nrow Number of rows in plot layout.
+#'        If there are more than 1 color.cols nrow must be equal to length(color.cols)
 #' @param ... Additional arguments passed to plot theme()
 #'
 #' @return A patchwork plot object
@@ -91,8 +93,14 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 #' @import patchwork
 #' @export
 arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata,
-                         interactive=F, legend.maxLabelPerCol=12, ...)
+                         interactive=F, legend.maxLabelPerCol=12,
+                         nrow=length(color.cols), ...)
 {
+    if(nrow != length(color.cols) & length(color.cols) != 1) {
+        stop('nrow must equal length(color.cols) when more than 1 color.col')
+    }
+    n_plot_rows <- nrow
+
     p <- NULL # initlize empty plot group
     for(color.i in 1:length(color.cols))
     {
@@ -118,6 +126,9 @@ arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata,
         }
     }
 
+    if(n_plot_rows > length(color.cols)) {
+        return(p + patchwork::plot_layout(nrow=n_plot_rows, byrow=T, guides="collect"))
+    }
     p + patchwork::plot_layout(nrow=length(color.cols), byrow=T)
 }
 

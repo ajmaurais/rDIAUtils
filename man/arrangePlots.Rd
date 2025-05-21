@@ -11,6 +11,7 @@ arrangePlots(
   dat.metadata,
   interactive = F,
   legend.maxLabelPerCol = 12,
+  nrow = length(color.cols),
   ...
 )
 }
@@ -26,6 +27,9 @@ arrangePlots(
 \item{interactive}{Use ggiraph::geom_point_interactive?}
 
 \item{legend.maxLabelPerCol}{An integer indicating the maximum labels per column in the legend.}
+
+\item{nrow}{Number of rows in plot layout.
+If there are more than 1 color.cols nrow must be equal to length(color.cols)}
 
 \item{...}{Additional arguments passed to plot theme()}
 }
