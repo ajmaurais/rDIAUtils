@@ -12,6 +12,7 @@ arrangePlots(
   interactive = F,
   legend.maxLabelPerCol = 12,
   nrow = length(color.cols),
+  return.list = FALSE,
   ...
 )
 }
@@ -30,6 +31,8 @@ arrangePlots(
 
 \item{nrow}{Number of rows in plot layout.
 If there are more than 1 color.cols nrow must be equal to length(color.cols)}
+
+\item{return.list}{Return a list of ggplot objects instead of a patchwork object.}
 
 \item{...}{Additional arguments passed to plot theme()}
 }

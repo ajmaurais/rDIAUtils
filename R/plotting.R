@@ -86,6 +86,7 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 #' @param legend.maxLabelPerCol An integer indicating the maximum labels per column in the legend.
 #' @param nrow Number of rows in plot layout.
 #'        If there are more than 1 color.cols nrow must be equal to length(color.cols)
+#' @param return.list Return a list of ggplot objects instead of a patchwork object.
 #' @param ... Additional arguments passed to plot theme()
 #'
 #' @return A patchwork plot object
@@ -94,36 +95,37 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 #' @export
 arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata,
                          interactive=F, legend.maxLabelPerCol=12,
-                         nrow=length(color.cols), ...)
+                         nrow=length(color.cols), return.list=FALSE, ...)
 {
   if (nrow != length(color.cols) & length(color.cols) != 1) {
     stop('nrow must equal length(color.cols) when more than 1 color.col')
   }
   n_plot_rows <- nrow
 
-  p <- NULL # initlize empty plot group
-  for(color.i in 1:length(color.cols))
-  {
-    for(row.i in 1:length(row.cols))
-    {
-      show.legend <- row.cols[row.i] == row.cols[length(row.cols)]
-      show.xlab <- color.cols[color.i] == color.cols[length(color.cols)]
-      plot.title <- if (color.cols[color.i] == color.cols[1]) getName(row.cols[row.i]) else { NULL }
+  p_list <- vector('list', length=length(color.cols) * length(row.cols))
+  plot_i <- 1
+  for (color.i in 1:length(color.cols)) {
+    for (row.i in 1:length(row.cols)) {
+      show_legend <- row.cols[row.i] == row.cols[length(row.cols)]
+      show_xlab <- color.cols[color.i] == color.cols[length(color.cols)]
+      plot_title <- if (color.cols[color.i] == color.cols[1]) getName(row.cols[row.i]) else { NULL }
 
-      if (is.null(p)) {
-        p <- PCAScatterPlot(pcs[[row.cols[row.i]]], dat.metadata,
-                            color.cols[color.i], plot.title=plot.title,
-                            show.xlab=show.xlab, show.legend=show.legend,
-                            interactive=interactive,
-                            legend.maxLabelPerCol=legend.maxLabelPerCol, ...)
-      } else {
-        p <- p + PCAScatterPlot(pcs[[row.cols[row.i]]], dat.metadata,
-                                color.cols[color.i], plot.title=plot.title,
-                                show.xlab=show.xlab, show.legend=show.legend,
-                                interactive=interactive,
-                                legend.maxLabelPerCol=legend.maxLabelPerCol, ...)
-      }
+      p_list[[plot_i]] <- rDIAUtils::PCAScatterPlot(
+        pcs[[row.cols[row.i]]],
+        dat.metadata,
+        color.cols[color.i],
+        plot.title = plot_title,
+        show.xlab = show_xlab,
+        show.legend = show_legend,
+        interactive = interactive,
+        legend.maxLabelPerCol = legend.maxLabelPerCol,
+      )
+      plot_i <- plot_i + 1
     }
+  }
+
+  if (return.list) {
+    return(p_list)
   }
 
   if (n_plot_rows > length(color.cols)) {
