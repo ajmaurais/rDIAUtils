@@ -9,6 +9,7 @@
 #' @param y.pc PC 2
 #' @param scale Scale argument passed to prcomp
 #' @param na.rm Remove rows with NAs? Default is False.
+#' @param return.all.pcs Return the full PC matrix instead of just 2 dimensions.
 #'   
 #' @return list with 3 slots:
 #'       pc: The pc dataframe
@@ -19,7 +20,7 @@
 #' @export
 pcAnalysis <- function(dat, quantCol,
                        rowsName='precursor', columnsName='replicate',
-                       x.pc=1, y.pc=2, scale=TRUE, na.rm=FALSE)
+                       x.pc=1, y.pc=2, scale=TRUE, na.rm=FALSE, return.all.pcs=FALSE)
 {
 
     requiredColumns <- c(quantCol, rowsName, columnsName)
@@ -61,6 +62,12 @@ pcAnalysis <- function(dat, quantCol,
     rownames(pc) <- 1:nrow(pc)
 
     ret <- list()
+    if (return.all.pcs) {
+        ret[['pc']] <- pc
+        ret[['var']] <- pcVar
+        return(ret)
+    }
+
     ret[['pc']] <- dplyr::select(pc, all_of(c(columnsName, paste0('PC', c(x.pc, y.pc)))))
 
     ret[['x.lab']] = sprintf(paste0("PC",x.pc,": %.2f%% var"), pcVar[x.pc])

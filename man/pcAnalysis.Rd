@@ -12,7 +12,8 @@ pcAnalysis(
   x.pc = 1,
   y.pc = 2,
   scale = TRUE,
-  na.rm = FALSE
+  na.rm = FALSE,
+  return.all.pcs = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ pcAnalysis(
 \item{scale}{Scale argument passed to prcomp}
 
 \item{na.rm}{Remove rows with NAs? Default is False.}
+
+\item{return.all.pcs}{Return the full PC matrix instead of just 2 dimensions.}
 }
 \value{
 list with 3 slots:
