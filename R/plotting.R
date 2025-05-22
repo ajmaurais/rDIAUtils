@@ -128,6 +128,7 @@ arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata,
     return(p_list)
   }
 
+  p <- patchwork::wrap_plots(p_list)
   if (n_plot_rows > length(color.cols)) {
     return(p + patchwork::plot_layout(nrow=n_plot_rows, byrow=T, guides="collect"))
   }
