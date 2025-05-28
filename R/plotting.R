@@ -13,6 +13,8 @@ getName <- function(vec) {
 #' @param pc A PCA matrix.
 #' @param dat.metadata A dataframe mapping replicate names to metadata terms to use in plots.
 #' @param color.col Column to use for color aesthetic.
+#' @param x.pc PC to plot on x axis
+#' @param y.pc PC to plot on y axis
 #' @param plot.title Plot title. By default there is no title.
 #' @param show.ylab Show y axis label?
 #' @param show.xlab Show x axis label?
@@ -25,14 +27,19 @@ getName <- function(vec) {
 #'
 #' @import ggplot2
 #' @export
-PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
+PCAScatterPlot <- function(pc, dat.metadata, color.col,
+                           x.pc=1, y.pc=2, plot.title=NULL,
                            show.ylab=T, show.xlab=T, show.legend=F,
                            interactive=F, legend.maxLabelPerCol=12, ...)
 {
   dat <- dplyr::left_join(pc[['pc']], dat.metadata, by='replicate')
 
-  p <- ggplot(dat, aes(x=PC1, y=PC2, color=get(color.col),
+  p <- ggplot(dat, aes(x=get(paste0('PC', x.pc)), y=get(paste0('PC', y.pc)),
+                       color=get(color.col),
                        tooltip=replicate, data_id=replicate))
+
+  pc_var <- pc[['var']]
+  pc_var <- sprintf('PC %d %.2f %% var', seq_along(pc_var), pc_var)
 
   if (interactive) {
     p <- p + ggiraph::geom_point_interactive()
@@ -45,13 +52,13 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
           plot.title=element_text(hjust=0.5), ...)
 
   if (show.ylab) {
-      p <- p + ylab(pc[['y.lab']])
+      p <- p + ylab(pc_var[y.pc])
   } else {
     p <- p + theme(..., axis.text.y=element_blank(), axis.ticks.y=element_blank()) +
       ylab(NULL)
   }
   if (show.xlab) {
-    p <- p + xlab(pc[['x.lab']])
+    p <- p + xlab(pc_var[x.pc])
   } else {
     p <- p + theme(..., axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
       xlab(NULL)
@@ -82,6 +89,8 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 #' @param row.cols Variables to use for rows.
 #' @param color.cols Variables to use for columns.
 #' @param dat.metadata A dataframe mapping replicate names to metadata terms to use in plots.
+#' @param x.pc PC to plot on x axis
+#' @param y.pc PC to plot on y axis
 #' @param interactive Use ggiraph::geom_point_interactive?
 #' @param legend.maxLabelPerCol An integer indicating the maximum labels per column in the legend.
 #' @param nrow Number of rows in plot layout.
@@ -94,7 +103,7 @@ PCAScatterPlot <- function(pc, dat.metadata, color.col, plot.title=NULL,
 #' @import patchwork
 #' @export
 arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata,
-                         interactive=F, legend.maxLabelPerCol=12,
+                         x.pc=1, y.pc=2, interactive=F, legend.maxLabelPerCol=12,
                          nrow=length(color.cols), return.list=FALSE, ...)
 {
   if (nrow != length(color.cols) & length(color.cols) != 1) {
@@ -104,8 +113,8 @@ arrangePlots <- function(pcs, row.cols, color.cols, dat.metadata,
 
   p_list <- vector('list', length=length(color.cols) * length(row.cols))
   plot_i <- 1
-  for (color.i in 1:length(color.cols)) {
-    for (row.i in 1:length(row.cols)) {
+  for (color.i in seq_along(color.cols)) {
+    for (row.i in seq_along(row.cols)) {
       show_legend <- row.cols[row.i] == row.cols[length(row.cols)]
       show_xlab <- color.cols[color.i] == color.cols[length(color.cols)]
       plot_title <- if (color.cols[color.i] == color.cols[1]) getName(row.cols[row.i]) else { NULL }

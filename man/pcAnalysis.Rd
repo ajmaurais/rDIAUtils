@@ -9,11 +9,8 @@ pcAnalysis(
   quantCol,
   rowsName = "precursor",
   columnsName = "replicate",
-  x.pc = 1,
-  y.pc = 2,
   scale = TRUE,
-  na.rm = FALSE,
-  return.all.pcs = FALSE
+  na.rm = FALSE
 )
 }
 \arguments{
@@ -25,15 +22,9 @@ pcAnalysis(
 
 \item{columnsName}{Name of the column to be column names in the wide matrix}
 
-\item{x.pc}{PC 1}
-
-\item{y.pc}{PC 2}
-
 \item{scale}{Scale argument passed to prcomp}
 
 \item{na.rm}{Remove rows with NAs? Default is False.}
-
-\item{return.all.pcs}{Return the full PC matrix instead of just 2 dimensions.}
 }
 \value{
 list with 3 slots:

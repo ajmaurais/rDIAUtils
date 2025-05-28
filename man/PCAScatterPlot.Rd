@@ -8,6 +8,8 @@ PCAScatterPlot(
   pc,
   dat.metadata,
   color.col,
+  x.pc = 1,
+  y.pc = 2,
   plot.title = NULL,
   show.ylab = T,
   show.xlab = T,
@@ -23,6 +25,10 @@ PCAScatterPlot(
 \item{dat.metadata}{A dataframe mapping replicate names to metadata terms to use in plots.}
 
 \item{color.col}{Column to use for color aesthetic.}
+
+\item{x.pc}{PC to plot on x axis}
+
+\item{y.pc}{PC to plot on y axis}
 
 \item{plot.title}{Plot title. By default there is no title.}
 

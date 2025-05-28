@@ -5,11 +5,8 @@
 #' @param quantCol The name of the column with quantative values to analyze
 #' @param rowsName Name of the column to be row names in the wide matrix
 #' @param columnsName Name of the column to be column names in the wide matrix
-#' @param x.pc PC 1
-#' @param y.pc PC 2
 #' @param scale Scale argument passed to prcomp
 #' @param na.rm Remove rows with NAs? Default is False.
-#' @param return.all.pcs Return the full PC matrix instead of just 2 dimensions.
 #'   
 #' @return list with 3 slots:
 #'       pc: The pc dataframe
@@ -20,7 +17,7 @@
 #' @export
 pcAnalysis <- function(dat, quantCol,
                        rowsName='precursor', columnsName='replicate',
-                       x.pc=1, y.pc=2, scale=TRUE, na.rm=FALSE, return.all.pcs=FALSE)
+                       scale=TRUE, na.rm=FALSE)
 {
 
   requiredColumns <- c(quantCol, rowsName, columnsName)
@@ -56,21 +53,13 @@ pcAnalysis <- function(dat, quantCol,
   res.d <- svd(dat.m - rowMeans(dat.m))
   pca <- prcomp(t(dat.m), retx = T, center = T, scale=scale)
   pcVar = round((res.d$d^2)/sum(res.d$d^2) * 100, 2)
-  PCs <- data.frame(pc = 1:length(pcVar), pcVar = pcVar)
+  PCs <- data.frame(pc = seq_along(pcVar), pcVar = pcVar)
   pc <- data.frame(pca$x)
   pc[[columnsName]] <- rownames(pc)
-  rownames(pc) <- 1:nrow(pc)
+  rownames(pc) <- seq_along(rownames(pc))
 
   ret <- list()
-  if (return.all.pcs) {
-    ret[['pc']] <- pc
-    ret[['var']] <- pcVar
-    return(ret)
-  }
-
-  ret[['pc']] <- dplyr::select(pc, all_of(c(columnsName, paste0('PC', c(x.pc, y.pc)))))
-
-  ret[['x.lab']] = sprintf(paste0("PC",x.pc,": %.2f%% var"), pcVar[x.pc])
-  ret[['y.lab']] = sprintf(paste0("PC",y.pc,": %.2f%% var"), pcVar[y.pc])
+  ret[['var']] <- pcVar
+  ret[['pc']] <- dplyr::select(pc, dplyr::all_of(columnsName), dplyr::matches('^PC'))
   ret
 }

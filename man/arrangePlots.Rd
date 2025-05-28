@@ -9,6 +9,8 @@ arrangePlots(
   row.cols,
   color.cols,
   dat.metadata,
+  x.pc = 1,
+  y.pc = 2,
   interactive = F,
   legend.maxLabelPerCol = 12,
   nrow = length(color.cols),
@@ -24,6 +26,10 @@ arrangePlots(
 \item{color.cols}{Variables to use for columns.}
 
 \item{dat.metadata}{A dataframe mapping replicate names to metadata terms to use in plots.}
+
+\item{x.pc}{PC to plot on x axis}
+
+\item{y.pc}{PC to plot on y axis}
 
 \item{interactive}{Use ggiraph::geom_point_interactive?}
 
